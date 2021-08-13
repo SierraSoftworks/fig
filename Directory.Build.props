@@ -1,0 +1,28 @@
+<Project>
+    <PropertyGroup>
+        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <Nullable>enable</Nullable>
+
+        <Authors>Sierra Softworks</Authors>
+        <Company>Sierra Softworks</Company>
+        <Product>Fig - Configuration Management</Product>
+        <Copyright>Copyright Sierra Softworks © 2021</Copyright>
+        <RepositoryUrl>https://github.com/SierraSoftworks/fig</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <DebugType>embedded</DebugType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.231" PrivateAssets="all" />
+    </ItemGroup>
+</Project>
