@@ -19,9 +19,9 @@
     {
         protected readonly CancellationToken cancellationToken;
         private readonly ConfigurationImporter importer;
-        protected readonly ILogger<SetVersionCommand> logger;
+        protected readonly ILogger<ImportVersionCommand> logger;
 
-        public ImportVersionCommand(ConfigurationImporter importer, ILogger<SetVersionCommand> logger, CancelSource cancelSource)
+        public ImportVersionCommand(ConfigurationImporter importer, ILogger<ImportVersionCommand> logger, CancelSource cancelSource)
         {
             this.cancellationToken = cancelSource.Token;
             this.importer = importer;
@@ -35,6 +35,7 @@
             /// </summary>
             [CommandArgument(0, "[PATH]")]
             [Description("The path to the directory containing the manifest to import.")]
+            [TypeConverter(typeof(DirectoryInfoTypeConverter))]
             public DirectoryInfo Path { get; init; } = new DirectoryInfo(Environment.CurrentDirectory);
 
             /// <summary>

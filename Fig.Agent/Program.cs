@@ -55,6 +55,9 @@
                         .WithDescription("Import a specific configuration version for use on the local machine.")
                         .WithExample(new[] { "version", "import", "./v1.6.2-beta.3/" });
 
+                    version.AddCommand<Commands.ExportVersionCommand>("export")
+                        .WithExample(new[] { "version", "export", "1.6.2-beta.3" });
+
                     version.AddCommand<Commands.RemoveVersionCommand>("remove")
                         .WithAlias("rm")
                         .WithDescription("Remove a specific configuration version from the local machine.")

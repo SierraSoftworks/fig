@@ -8,6 +8,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -95,6 +96,37 @@
             }));
 
             await dataDirectory.StoreManifestAsync(manifest, cancellationToken);
+        }
+
+        /// <summary>
+        /// Exports the configuration associated with the provided <paramref name="manifest"/> into a <paramref name="targetDirectory"/>.
+        /// </summary>
+        /// <param name="manifest">The manifest which lists the files to be exported.</param>
+        /// <param name="targetDirectory">The directory into which the configuration files should be exported.</param>
+        /// <param name="dataDirectory">The data directory into which the files should be exported.</param>
+        /// <param name="cancellationToken">The cancellation token wihch can be used to abort this operation.</param>
+        /// <returns></returns>
+        public async Task ExportAsync(Manifest manifest, DirectoryInfo targetDirectory, DataDirectory dataDirectory, CancellationToken cancellationToken)
+        {
+            await Task.WhenAll(manifest.Files.Select(async file =>
+            {
+                file.Validate();
+
+                var targetFile = new FileInfo(Path.Combine(targetDirectory.FullName, file.FileName!));
+                if (!targetFile.Directory!.Exists)
+                {
+                    targetFile.Directory.Create();
+                }
+
+                using var target = targetFile.OpenWrite();
+                using var source = await dataDirectory.GetFileReadStreamAsync(file.Checksum!, cancellationToken).ConfigureAwait(false);
+
+                await source.CopyToAsync(target, cancellationToken).ConfigureAwait(false);
+            }));
+
+            var manifestFile = new FileInfo(Path.Combine(targetDirectory.FullName, Manifest.Filename));
+            using var fs = manifestFile.OpenWrite();
+            await JsonSerializer.SerializeAsync(fs, manifest, cancellationToken: cancellationToken);
         }
     }
 }
