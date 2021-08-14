@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0-example",
+  "files": [
+    {
+      "checksum": "sha256@43fe4d250338cf970dcfdfc6f03e5da4d67c1b825b2e841aae3f12358a89a4a5",
+      "fileName": "config.ini"
+    },
+    {
+      "checksum": "sha256@c7c4f5373304d3d4cd56835fadfa1ec8c13d198307efd51e1ae3acb45103ccb5",
+      "fileName": "fig.healthchecks.json"
+    }
+  ]
+}

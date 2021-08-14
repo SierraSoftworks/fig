@@ -1,5 +1,6 @@
 ﻿namespace Fig.Common
 {
+    using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,6 +12,10 @@
     /// </summary>
     public interface IPlugin
     {
-
+        /// <summary>
+        /// Registers the plugin's services.
+        /// </summary>
+        /// <param name="services"></param>
+        void Register(IServiceCollection services);
     }
 }

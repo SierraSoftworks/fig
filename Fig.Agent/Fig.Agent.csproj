@@ -8,19 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="6.0.0-preview.5.21301.5" />
-    <PackageReference Include="Spectre.Console" Version="0.41.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="6.0.0-preview.7.21377.19" />
+	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Spectre.Console" Version="0.41.1-preview.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Fig.Common\Fig.Common.csproj" />
     <ProjectReference Include="..\Fig.Config\Fig.Config.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,10 @@
 ﻿namespace Fig.Agent
 {
-    using Fig.Config;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using System.Threading.Tasks;
     using Spectre.Console.Cli;
     using Fig.Agent.Infrastructure;
-    using System.Threading;
     using System;
     using Spectre.Console;
     using Fig.Common;
@@ -31,9 +29,6 @@
                 config.AddCommand<Commands.InitCommand>("init");
 
                 config.AddCommand<Commands.PruneCommand>("prune");
-
-                config.AddCommand<Commands.WatchVersionCommand>("watch")
-                    .WithExample(new[] { "watch" });
 
                 config.AddBranch("version", version =>
                 {
@@ -62,6 +57,17 @@
                         .WithAlias("rm")
                         .WithDescription("Remove a specific configuration version from the local machine.")
                         .WithExample(new[] { "version", "remove", "v1.6.2-alpha.1" });
+
+                    config.AddCommand<Commands.WatchVersionCommand>("watch")
+                        .WithExample(new[] { "version", "watch" });
+                });
+
+                config.AddBranch("healthcheck", healthcheck =>
+                {
+                    healthcheck.SetDescription("Manage the healthchecks used to evaluate the health of the service(s) configured by Fig");
+
+                    healthcheck.AddCommand<Commands.WatchHealthchecksCommand>("watch")
+                        .WithExample(new[] { "healthcheck", "watch" });
                 });
 
                 config.AddBranch("manifest", manifest =>
@@ -115,8 +121,11 @@
         {
             services.AddLogging(config => config.ClearProviders().AddProvider(new AnsiConsoleLoggerProvider()));
             services
+                .AddHttpClient()
+                .AddFigConfiguration()
                 .AddSingleton<ConfigurationImporter>()
-                .AddSingleton<CancelSource>();
+                .AddSingleton<CancelSource>()
+                .AddSingleton<IHealthcheckReporter, ReplaceableHealthcheckReporter>();
         }
     }
 }

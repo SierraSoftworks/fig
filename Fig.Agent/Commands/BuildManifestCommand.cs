@@ -8,6 +8,7 @@
     using Spectre.Console;
     using Spectre.Console.Cli;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
@@ -70,10 +71,17 @@
                 .Spinner(Spinner.Known.Dots)
                 .StartAsync("Collecting matching files...", async (spinner) =>
                 {
-                    var matchingFiles = settings.Path.GetFiles(settings.Filter, SearchOption.AllDirectories);
+                    var alwaysIgnoredFiles = new HashSet<string>
+                    {
+                        Manifest.Filename
+                    };
 
-                    Logger.LogInformation("Found {Files} files which matched your pattern.", matchingFiles.Length);
-                    spinner.Status = $"Calculating checksums for files (0/{matchingFiles.Length})";
+                    var matchingFiles = settings.Path
+                        .GetFiles(settings.Filter, SearchOption.AllDirectories)
+                        .Where(f => !alwaysIgnoredFiles.Contains(f.Name));
+
+                    Logger.LogInformation("Found {Files} files which matched your pattern.", matchingFiles.Count());
+                    spinner.Status = $"Calculating checksums for files (0/{matchingFiles.Count()})";
 
                     var fileIndex = 0;
                     var fileHashTasks = matchingFiles.Select(async file =>
@@ -82,7 +90,7 @@
                         {
                             var checksum = await ChecksumExtensions.GetHashStringAsync(Checksum.Get(settings.HashAlgorithm), fs, this.CancellationToken);
 
-                            spinner.Status = $"Calculating checksums for files ({Interlocked.Increment(ref fileIndex)}/{matchingFiles.Length})";
+                            spinner.Status = $"Calculating checksums for files ({Interlocked.Increment(ref fileIndex)}/{matchingFiles.Count()})";
 
                             return new Manifest.File
                             {

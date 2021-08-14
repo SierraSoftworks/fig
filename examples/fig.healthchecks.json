@@ -1,0 +1,18 @@
+{
+    "healthchecks": [
+        {
+            "id": "bender-prod",
+            "kind": "http",
+            "endpoint": "https://bender.sierrasoftworks.com/api/v1/health",
+            "period": "00:00:30",
+            "initialDelay": "00:00:05"
+        },
+        {
+            "id": "rex-prod",
+            "kind": "http",
+            "endpoint": "https://rex.sierrasoftworks.com/api/v2/health",
+            "period": "00:00:30",
+            "initialDelay": "00:00:05"
+        }
+    ]
+}

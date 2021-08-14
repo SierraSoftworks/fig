@@ -27,6 +27,11 @@
         }
 
         /// <summary>
+        /// Gets the version number associated with the manifest for this config version.
+        /// </summary>
+        public string Version => this.Manifest.Version!;
+
+        /// <summary>
         /// Gets the manifest which represents this config version.
         /// </summary>
         public Manifest Manifest { get; }
