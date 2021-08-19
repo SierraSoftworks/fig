@@ -2,6 +2,7 @@
     <PropertyGroup>
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <Nullable>enable</Nullable>
+        <LanguageVersion>preview</LanguageVersion>
 
         <Authors>Sierra Softworks</Authors>
         <Company>Sierra Softworks</Company>

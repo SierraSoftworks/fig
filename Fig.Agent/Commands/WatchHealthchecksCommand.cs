@@ -46,7 +46,7 @@
             var version = settings.Version is null ? await client.GetCurrentVersionAsync(cancellationToken) : await client.GetVersionAsync(settings.Version, cancellationToken);
             logger.LogInformation("Loaded configuration version {Version}.", version.Version);
 
-            HealthcheckManifest healthcheckManifest;
+            HealthcheckManifest? healthcheckManifest;
             try
             {
                 using var fs = await version.GetFileReadStreamAsync(HealthcheckManifest.Filename, cancellationToken);
