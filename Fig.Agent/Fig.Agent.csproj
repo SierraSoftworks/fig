@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Spectre.Console" Version="0.44.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
